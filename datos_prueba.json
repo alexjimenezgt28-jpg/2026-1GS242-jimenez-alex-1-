@@ -1,0 +1,25 @@
+{
+    "clientes": [
+        {
+            "cip": "12345",
+            "nombre": "Juan Perez",
+            "telefono": "6677-8899",
+            "email": "juan.perez@email.com",
+            "direccion": "Calle Principal, Panama"
+        },
+        {
+            "cip": "67890",
+            "nombre": "Maria Lopez",
+            "telefono": "6000-1111",
+            "email": "maria.lopez@email.com",
+            "direccion": "Avenida Central, Panama"
+        },
+        {
+            "cip": "11111",
+            "nombre": "Carlos Ruiz",
+            "telefono": "6123-4567",
+            "email": "carlos.ruiz@email.com",
+            "direccion": "Via Espana, Panama"
+        }
+    ]
+}
