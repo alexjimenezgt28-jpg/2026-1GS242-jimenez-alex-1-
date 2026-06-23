@@ -1,0 +1,41 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: checkers-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+  api:
+    build: ./api
+    container_name: checkers-api
+    ports:
+      - "3000:3000"
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/checkers
+      CLERK_SECRET_KEY: ${CLERK_SECRET_KEY}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      FRONTEND_URL: http://localhost:8080
+      PORT: "3000"
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  web:
+    build: ./web
+    container_name: checkers-web
+    ports:
+      - "8080:80"
+    environment:
+      VITE_CLERK_PUBLISHABLE_KEY: ${VITE_CLERK_PUBLISHABLE_KEY}
+      VITE_STRIPE_PUBLISHABLE_KEY: ${VITE_STRIPE_PUBLISHABLE_KEY}
+      VITE_API_URL: http://localhost:3000
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
